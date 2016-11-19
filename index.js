@@ -42,7 +42,7 @@ bot.on('message', function (msg) {
   var chatId = msg.chat.id;
 
   // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, "B A R N E Y");
+  bot.sendMessage(chatId, "Barney usa XML");
 });
   //
 });
