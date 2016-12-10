@@ -2,14 +2,14 @@
 var TelegramBot = require('node-telegram-bot-api');
 
 module.exports = function(){
-   bot.sendMessage("153878723", "Barney usa XML");
+   
 
   // replace the value below with the Telegram token you receive from @BotFather
   var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 
   // Create a bot that uses 'polling' to fetch new updates
   var bot = new TelegramBot(token, { polling: true });
-
+  bot.sendMessage("153878723", "Barney usa XML");
   // Matches "/echo [whatever]"
   bot.onText(/\/echo (.+)/, function (msg, match) {
     // 'msg' is the received Message from Telegram
