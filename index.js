@@ -1,24 +1,19 @@
-var express = require('express');
-var app = express();
-
-app.set('port', (process.env.PORT || 5000));
-
-app.use(express.static(__dirname + '/public'));
+"use strict";
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
-  response.render('pages/index');
-});
+var http = require("http");
 
-app.get('/bot', function (req,res){
-  //
-var TelegramBot = require('node-telegram-bot-api');
+var port = (process.env.PORT || 5000);
 
+http.createServer(function(request, response){
+
+  response.write(200,{'Content-Type':'application/json'});
+  response.write(JSON.stringify({name: 'smartcitiesbot', ver:'0.0.1'}));
 // replace the value below with the Telegram token you receive from @BotFather
-var token = '249094561:AAHznGJq1tliamcxCjR2yh8fjftbjrtPN0I';
+var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 
 // Create a bot that uses 'polling' to fetch new updates
 var bot = new TelegramBot(token, { polling: true });
@@ -44,12 +39,11 @@ bot.on('message', function (msg) {
   // send a message to the chat acknowledging receipt of their message
   bot.sendMessage(chatId, "Barney usa XML");
 });
-  //
-});
 
+  return "Teste";
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+  response.end();
+}).listen(port);
+
 
 
