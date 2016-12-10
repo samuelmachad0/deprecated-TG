@@ -1,9 +1,5 @@
 "use strict";
 
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-
 var http = require("http");
 
 var port = (process.env.PORT || 5000);
