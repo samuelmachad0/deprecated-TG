@@ -9,7 +9,7 @@ module.exports = function(){
 
   // Create a bot that uses 'polling' to fetch new updates
   var bot = new TelegramBot(token, { polling: true });
-  //bot.sendMessage("153878723", "Barney usa XML");
+  bot.sendMessage("153878723", "Barney usa XML");
   // Matches "/echo [whatever]"
   bot.onText(/\/echo (.+)/, function (msg, match) {
     // 'msg' is the received Message from Telegram
@@ -22,10 +22,4 @@ module.exports = function(){
     // send back the matched "whatever" to the chat
     bot.sendMessage(chatId, resp);
   });
-
-  bot.on('message', function (msg) {
-  var chatId = msg.chat.id;
-
-  // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, "Received your message");
 }
