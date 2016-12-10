@@ -6,10 +6,9 @@ app.get('/', function (req, res) {
   var TelegramBot = require('node-telegram-bot-api');
 
     var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
-    var parts = url.parse(request.url, true);
-    var query = parts.query;
+
   var bot = new TelegramBot(token, { polling: true });
-  bot.sendMessage("153878723",  request.query.valor);
+  bot.sendMessage("153878723",  "macaco");
   res.send("porra");
 });
 
