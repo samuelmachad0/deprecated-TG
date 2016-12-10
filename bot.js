@@ -11,8 +11,8 @@ module.exports = function(){
   });
   bot.on('message', function (msg) {
     var chatId = msg.chat.id;
-    var resp = match[1]; 
-    bot.sendMessage(chatId, resp);
+
+    bot.sendMessage(chatId, "Suzana");
    });
 }
 
