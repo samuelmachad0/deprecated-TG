@@ -2,7 +2,8 @@
 var TelegramBot = require('node-telegram-bot-api');
 
 module.exports = function(){
- 
+   bot.sendMessage("153878723", "Barney usa XML");
+
   // replace the value below with the Telegram token you receive from @BotFather
   var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 
