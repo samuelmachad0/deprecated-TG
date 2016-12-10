@@ -7,7 +7,7 @@ require('./bot.js')();
 
 http.createServer(function(request, response){
 
-  response.writeHead(response.statusCode.toString(),{'Content-Type':'application/json'});
+  response.writeHead(response.statusCode.toString(),{'Content-Type':'application/json','method': 'POST'});
   response.write(JSON.stringify({name: 'smartcitiesbot', ver:'0.0.1'}));
   response.end();
 }).listen(port);
