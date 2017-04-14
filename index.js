@@ -43,9 +43,9 @@ function checkNotification(chatId){
       handleError(res, err.message, "Failed to get contact");
     } else {
     	console.log(doc.name);
-    	return 1;
+    	return 'enabled';
     }
-    return 0;
+    return 'disabled';
 	});
 }
   
@@ -53,7 +53,7 @@ bot.on('message', function (msg) {
 
  var chatId = msg.chat.id;
  var notification = 'error';
- if( checkNotification(chatId) ){
+ if( checkNotification(chatId) == 'enabled'){
  	notification = '🚫 Desativar Notificações';
  } else {
  	 notification = '✅ Ativar Notificações';
