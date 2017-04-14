@@ -42,8 +42,9 @@ function checkNotification(chatId){
     if (err) {
       handleError(res, err.message, "Failed to get contact");
     } else {
-    	console.log(doc.name);
-    	return true;
+    	if(doc){
+    		    	return true;
+    	}
     }
 	});
 	return false;
