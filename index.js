@@ -43,7 +43,8 @@ function checkNotification(chatId){
       handleError(res, err.message, "Failed to get contact");
     } else {
     	if(doc){
-    		    	return true;
+    		console.log("vai a merda");
+    		  return true;
     	}
     }
 	});
