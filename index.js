@@ -45,6 +45,7 @@ function checkNotification(chatId){
     	return 1;
     }
     return 0;
+	});
 }
   
 bot.on('message', function (msg) {
