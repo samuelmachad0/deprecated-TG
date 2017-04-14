@@ -12,7 +12,9 @@
   "dependencies": {
     "ejs": "2.4.1",
     "express": "4.13.3",
-    "node-telegram-bot-api": "^0.24.0"
+    "node-telegram-bot-api": "^0.24.0",
+    "mongodb": "^2.1.6",
+    "body-parser": "^1.13.3"
   },
   "repository": {
     "type": "git",
