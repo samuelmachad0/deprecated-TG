@@ -53,7 +53,13 @@ bot.on('message', function (msg) {
 
 
 app.get("/sensor/:valueSensor", function(req, res) {
-  var sensor =   db.collection('bot').findOne();
+  db.collection('bot').findOne({}, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get contact");
+    } else {
+      console.log("bambo");
+    }
+  });
   // sensor.status = req.params.valueSensor;
 
   // db.collection(COLLECTION).updateOne({_id: sensor._id}, sensor, function(err, doc) {
