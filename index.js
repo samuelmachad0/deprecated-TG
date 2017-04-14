@@ -37,16 +37,33 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 var bot = new TelegramBot(token, { polling: true });
 
+function checkNotification(chatId){
+	db.collection('users').findOne({ chat_id: chatId  }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get contact");
+    } else {
+    	return 1;
+    }
+    return 0;
+}
   
 bot.on('message', function (msg) {
 
-  var chatId = msg.chat.id;
+ var chatId = msg.chat.id;
+ var notification = 'error';
+ if( checkNotification(chatId) ){
+ 	notification = '🚫 Desativar Notificações';
+ } else {
+ 	 notification = '✅ Ativar Notificações';
+ }
+ 
+});
  var opts = {
       reply_to_message_id: msg.message_id,
       reply_markup: JSON.stringify({
         keyboard: [
-          ['ADS'],
-          ['BD']]
+          [notification],
+          ['Verificar Leitura']]
       })
     };
   bot.sendMessage(chatId,  msg.text,opts);
