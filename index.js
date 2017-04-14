@@ -52,7 +52,7 @@ bot.on('message', function (msg) {
 });
 
 
-app.put("/sensor/:valueSensor", function(req, res) {
+app.get("/sensor/:valueSensor", function(req, res) {
   var sensor =   db.collection('bot').findOne();
   sensor.status = req.params.valueSensor;
 
