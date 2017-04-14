@@ -53,7 +53,7 @@ bot.on('message', function (msg) {
 
 
 app.get("/sensor/:id", function(req, res) {
-  var re = db.collection('bot').findOne();
+//  var re = db.collection('bot').findOne();
 
   db.collection('bot').findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
     if (err) {
