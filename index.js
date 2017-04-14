@@ -8,7 +8,7 @@ app.get('/', function (req, res) {
     var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 
   var bot = new TelegramBot(token, { polling: true });
-  bot.sendMessage("153878723",  "macaco");
+  bot.sendMessage("153878723",  "dddd");
   res.send("porra");
 });
 
