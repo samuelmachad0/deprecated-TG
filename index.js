@@ -52,9 +52,18 @@ bot.on('message', function (msg) {
 });
 
 
-app.get("/sensor/:valueSensor", function(req, res) {
+app.get("/sensor/:id", function(req, res) {
   var re = db.collection('bot').findOne();
-  console.log(re._id);
+
+  db.collection('bot').findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get contact");
+    } else {
+      console.log(doc.status);
+    }
+  });
+
+  
   // sensor.status = req.params.valueSensor;
 
   // db.collection(COLLECTION).updateOne({_id: sensor._id}, sensor, function(err, doc) {
