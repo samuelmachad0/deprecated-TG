@@ -3,6 +3,7 @@ var path = require("path");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
+var TelegramBot = require('node-telegram-bot-api');
 
 var CONTACTS_COLLECTION = "users";
 
@@ -32,3 +33,19 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 });
 
 // CONTACTS API ROUTES BELOW
+
+var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
+var bot = new TelegramBot(token, { polling: true });
+
+  
+bot.on('message', function (msg) {
+
+  var chatId = msg.chat.id;
+
+  bot.sendMessage(chatId,  msg.text);
+  var newContact = '{"a":"b"}';
+  db.collection(users).insertOne(newContact, function(err, doc) {
+   
+  });
+
+});
