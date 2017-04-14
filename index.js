@@ -39,11 +39,9 @@ var bot = new TelegramBot(token, { polling: true });
 
 function checkNotification(chatId){
 	 db.collection('users').findOne({ chat_id: chatId }, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to get contact");
-    } else {
-		console.log(doc.chat_id);
-	}
+   
+		console.log(doc);
+	
     });
 }
   
