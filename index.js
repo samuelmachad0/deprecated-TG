@@ -52,21 +52,23 @@ bot.on('message', function (msg) {
 });
 
 
-app.get("/sensor/:id", function(req, res) {
-//	  var re = db.collection('bot').findOne();
+app.get("/sensor/:value", function(req, res) {
+	//	  var re = db.collection('bot').findOne();
 
-  db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to get contact");
-    } else {
-        res.status(200).json(doc);
-    }
-  });
+	db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
+		if (err) {
+			handleError(res, err.message, "Failed to get contact");
+		} else {
+			doc.status = req.params.value;
+			db.collection('bot').updateOne({_id: doc._id, doc, function(err, doc) {
+				if (err) {
+				handleError(res, err.message, "Failed to update contact");
+				} else {
+					res.status(200).json(doc);
+				}
+			});
+					}
+		}
+	});
 
-  
-  // sensor.status = req.params.valueSensor;
-
-  // db.collection(COLLECTION).updateOne({_id: sensor._id}, sensor, function(err, doc) {
-   
-  // });
 });
