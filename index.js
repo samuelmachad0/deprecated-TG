@@ -59,7 +59,7 @@ app.get("/sensor/:id", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed to get contact");
     } else {
-      console.log(doc.status);
+        res.status(200).json(doc);
     }
   });
 
