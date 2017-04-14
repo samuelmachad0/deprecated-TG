@@ -43,9 +43,14 @@ bot.on('message', function (msg) {
   var chatId = msg.chat.id;
 
   bot.sendMessage(chatId,  msg.text);
-  var newContact = '{"a":"b"}';
+  var newContact =  msg;
+    newContact.createDate = new Date();
   db.collection(users).insertOne(newContact, function(err, doc) {
-   
+    if (err) {
+      handleError(res, err.message, "Failed to create new contact.");
+    } else {
+      res.status(201).json(doc.ops[0]);
+    }
   });
 
 });
