@@ -54,7 +54,7 @@ bot.on('message', function (msg) {
 
  var chatId = msg.chat.id;
  var notification = 'error';
- if( checkNotification(chatId) == true){
+ if( checkNotification(chatId) == false){
  	notification = '🚫 Desativar Notificações';
  } else {
  	 notification = '✅ Ativar Notificações';
