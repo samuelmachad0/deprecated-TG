@@ -38,9 +38,12 @@ var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 var bot = new TelegramBot(token, { polling: true });
 
 function checkNotification(chatId){
-	if( db.collection('users').find({ chat_id: {$eq: chatId}  }).count() > 0){
+	if( db.collection('users').find({ chat_id:  chatId  }).count() > 0){
+		console.log("t");
 		return true;	
 	} 
+			console.log("f");
+
 	return false;
 }
   
