@@ -68,7 +68,7 @@ bot.on('message', function (msg) {
           ['Verificar Leitura']]
       })
     };
-  bot.sendMessage(chatId,  msg.text,opts);
+  bot.sendMessage(chatId,  msg.chat.id,opts);
   // var newContact =  msg;
   //   newContact.createDate = new Date();
   // db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
