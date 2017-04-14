@@ -54,9 +54,9 @@ bot.on('message', function (msg) {
 
 app.get("/sensor/:valueSensor", function(req, res) {
   var sensor =   db.collection('bot').findOne();
-  sensor.status = req.params.valueSensor;
+  // sensor.status = req.params.valueSensor;
 
-  db.collection(COLLECTION).updateOne({_id: sensor._id}, sensor, function(err, doc) {
+  // db.collection(COLLECTION).updateOne({_id: sensor._id}, sensor, function(err, doc) {
    
-  });
+  // });
 });
