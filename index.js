@@ -58,7 +58,6 @@ bot.on('message', function (msg) {
  	 notification = '✅ Ativar Notificações';
  }
  
-});
  var opts = {
       reply_to_message_id: msg.message_id,
       reply_markup: JSON.stringify({
