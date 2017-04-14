@@ -46,11 +46,7 @@ bot.on('message', function (msg) {
   var newContact =  msg;
     newContact.createDate = new Date();
   db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new contact.");
-    } else {
-      res.status(201).json(doc.ops[0]);
-    }
+   
   });
 
 });
