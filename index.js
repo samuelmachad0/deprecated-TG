@@ -43,17 +43,17 @@ function checkNotification(chatId){
       handleError(res, err.message, "Failed to get contact");
     } else {
     	console.log(doc.name);
-    	return 'enabled';
+    	return true;
     }
-    return 'disabled';
 	});
+	return false;
 }
   
 bot.on('message', function (msg) {
 
  var chatId = msg.chat.id;
  var notification = 'error';
- if( checkNotification(chatId) == 'enabled'){
+ if( checkNotification(chatId) == true){
  	notification = '🚫 Desativar Notificações';
  } else {
  	 notification = '✅ Ativar Notificações';
