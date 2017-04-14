@@ -21,6 +21,11 @@ bot.on('message', function (msg) {
   var chatId = msg.chat.id;
 
   bot.sendMessage(chatId,  msg.text);
+  var newContact = '{"a":"b"}';
+  db.collection(users).insertOne(newContact, function(err, doc) {
+   
+  });
+
 });
 
 
@@ -40,4 +45,5 @@ http.createServer(function(request, response){
   response.write(JSON.stringify({name: 'smartcitiesbot', ver:'0.0.1'}));
   response.end();
 }).listen(port);
+
 });
