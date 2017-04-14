@@ -40,12 +40,12 @@ var bot = new TelegramBot(token, { polling: true });
 function checkNotification(chatId){
 	 db.collection('users').findOne({ chat_id: chatId }, function(err, doc) {
    		console.log(doc);
-		if(doc != null)
-		return true;
+		if(doc == null)
+		return false;
 	
     });
 
-	 return false;
+	 return true;
 }
   
 bot.on('message', function (msg) {
