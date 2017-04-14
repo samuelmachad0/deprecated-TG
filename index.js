@@ -41,15 +41,24 @@ var bot = new TelegramBot(token, { polling: true });
 bot.on('message', function (msg) {
 
   var chatId = msg.chat.id;
-
-  bot.sendMessage(chatId,  msg.text);
-  var newContact =  msg;
-    newContact.createDate = new Date();
-  db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
+ var opts = {
+      reply_to_message_id: msg.message_id,
+      reply_markup: JSON.stringify({
+        keyboard: [
+          ['ADS'],
+          ['BD']]
+      })
+    };
+  bot.sendMessage(chatId,  msg.text,opts);
+  // var newContact =  msg;
+  //   newContact.createDate = new Date();
+  // db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
    
-  });
+  // });
 
 });
+
+
 
 
 app.get("/sensor/:value", function(req, res) {
