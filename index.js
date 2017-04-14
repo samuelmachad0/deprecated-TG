@@ -5,7 +5,7 @@ var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
 
-var CONTACTS_COLLECTION = "users";
+var COLLECTION = "users";
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
@@ -45,7 +45,7 @@ bot.on('message', function (msg) {
   bot.sendMessage(chatId,  msg.text);
   var newContact =  msg;
     newContact.createDate = new Date();
-  db.collection(users).insertOne(newContact, function(err, doc) {
+  db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to create new contact.");
     } else {
