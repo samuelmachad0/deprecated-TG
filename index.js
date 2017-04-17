@@ -37,14 +37,20 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 var bot = new TelegramBot(token, { polling: true });
 
-function checkNotification(chatId){
-	  
-  
-}
-  
 bot.on('message', function (msg) {
- console.log('UH UH PAPAI CHEGOU');
+ 
  var chatId = msg.chat.id;
+ 
+ if (msg.text.match("🚫 Desativar Notificações")) {
+    console.log("Remover!");
+ }
+ if (msg.text.match("✅ Ativar Notificações")) {
+    console.log("Incluir!");
+ }
+ if (msg.text.match("Verificar Leitura")) {
+      console.log("Leia");
+
+ }
  db.collection('users').count({ chat_id: chatId }, function(err, countDocuments) {
     if(parseInt(countDocuments) > 0){
        var opts = {
@@ -66,7 +72,7 @@ bot.on('message', function (msg) {
                 ['Verificar Leitura']]
             })
           };
-            bot.sendMessage(chatId,  msg.chat.id,opts);
+          bot.sendMessage(chatId,  msg.chat.id,opts);
 
     }
     });
