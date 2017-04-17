@@ -42,18 +42,20 @@ function checkNotification(chatId){
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
       console.log("VAI CAVALA");
-      return 1;     
+      return true;     
+    } else {
+      console.log("VAI BISCATE");
+      return false;
     }
     });
-    console.log("VAI BISCATE");
-	  return 2;
+  
 }
   
 bot.on('message', function (msg) {
  console.log('UH UH PAPAI CHEGOU');
  var chatId = msg.chat.id;
  var notification = 'error';
- if( checkNotification(chatId) == 1 ){
+ if( checkNotification(chatId) ){
  	notification = '🚫 Desativar Notificações';
  } else {
  	 notification = '✅ Ativar Notificações';
