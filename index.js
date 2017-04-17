@@ -46,7 +46,7 @@ bot.on('message', function (msg) {
   console.log("Removido");
  }
  if (msg.text.match("✅ Ativar Notificações")) {
-    var doc = {chat_id: chatId, name: msg.message.from.first_name, type: "User"  };
+    var doc = {chat_id: chatId, name: msg.message.chat.first_name, type: "User"  };
     db.collection('users').insert(doc);
 
     console.log("Incluir!");
