@@ -46,7 +46,6 @@ bot.on('message', function (msg) {
  console.log('UH UH PAPAI CHEGOU');
  var chatId = msg.chat.id;
  db.collection('users').count({ chat_id: chatId }, function(err, countDocuments) {
-    console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
        var opts = {
             reply_to_message_id: msg.message_id,
@@ -56,6 +55,8 @@ bot.on('message', function (msg) {
                 ['Verificar Leitura']]
             })
           };
+            bot.sendMessage(chatId,  msg.chat.id,opts);
+
     } else {
        var opts = {
             reply_to_message_id: msg.message_id,
@@ -65,12 +66,13 @@ bot.on('message', function (msg) {
                 ['Verificar Leitura']]
             })
           };
+            bot.sendMessage(chatId,  msg.chat.id,opts);
+
     }
     });
 
 
 
-  bot.sendMessage(chatId,  msg.chat.id,opts);
   // var newContact =  msg;
   //   newContact.createDate = new Date();
   // db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
