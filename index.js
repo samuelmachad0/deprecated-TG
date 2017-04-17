@@ -42,10 +42,10 @@ function checkNotification(chatId){
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
       console.log("VAI CAVALA");
-      return '🚫 Desativar Notificações';     
+      return ' Desativar Notificações';     
     } else {
       console.log("VAI BISCATE");
-      return '✅ Ativar Notificações';
+      return ' Ativar Notificações';
     }
     });
   
