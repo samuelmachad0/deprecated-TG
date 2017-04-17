@@ -38,15 +38,15 @@ var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 var bot = new TelegramBot(token, { polling: true });
 
 function checkNotification(chatId){
-    console.log( db.collection('users').count({ chat_id: chatId } ) ) ;
-	 // db.collection('users').find({ chat_id: chatId }, function(err, doc) {
-  //  		console.log(doc);
+  //db.collection('users').count({ chat_id: chatId } )  ;
+	  db.collection('users').count({ chat_id: chatId }, function(err, doc) {
+    		console.log(doc);
 		// if(doc){
 		// 			return true;
 
 		// }
 	
-  //   });
+    });
 
 	  return false;
 }
