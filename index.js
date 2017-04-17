@@ -47,7 +47,15 @@ bot.on('message', function (msg) {
  }
  if (msg.text.match("✅ Ativar Notificações")) {
     var doc = {chat_id: chatId, name: msg.chat.first_name, type: "User"  };
-    db.collection('users').update({chat_id:chatId}, {doc}, {upsert:true});
+    db.collection('users').update({chat_id:chatId}, {doc}, {upsert:true, safe:false}, 
+  function(err,data){
+        if (err){
+            console.log(err);
+        }else{
+            console.log("score succeded");
+        }
+    }
+      );
     console.log("Incluir!");
  }
  if (msg.text.match("Verificar Leitura")) {
