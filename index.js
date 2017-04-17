@@ -38,39 +38,39 @@ var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 var bot = new TelegramBot(token, { polling: true });
 
 function checkNotification(chatId){
-	  db.collection('users').count({ chat_id: chatId }, function(err, countDocuments) {
-    console.log(countDocuments);
-    if(parseInt(countDocuments) > 0){
-      console.log("VAI CAVALA");
-      return 1;     
-    } else {
-      console.log("VAI BISCATE");
-      return 2;
-    }
-    });
+	  
   
 }
   
 bot.on('message', function (msg) {
  console.log('UH UH PAPAI CHEGOU');
  var chatId = msg.chat.id;
- var notification = 'error';
- if( checkNotification(chatId) == 1 ){
-  console.log("foi aqui delicia");
- 	notification = '🚫 Desativar Notificações';
- } else {
-  console.log("NAO foi aqui delicia");
- 	 notification = '✅ Ativar Notificações';
- }
- 
- var opts = {
-      reply_to_message_id: msg.message_id,
-      reply_markup: JSON.stringify({
-        keyboard: [
-          [notification],
-          ['Verificar Leitura']]
-      })
-    };
+ db.collection('users').count({ chat_id: chatId }, function(err, countDocuments) {
+    console.log(countDocuments);
+    if(parseInt(countDocuments) > 0){
+       var opts = {
+            reply_to_message_id: msg.message_id,
+            reply_markup: JSON.stringify({
+              keyboard: [
+                ['🚫 Desativar Notificações'],
+                ['Verificar Leitura']]
+            })
+          };
+    } else {
+       var opts = {
+            reply_to_message_id: msg.message_id,
+            reply_markup: JSON.stringify({
+              keyboard: [
+                ['✅ Ativar Notificações'],
+                ['Verificar Leitura']]
+            })
+          };
+      return 2;
+    }
+    });
+
+
+
   bot.sendMessage(chatId,  msg.chat.id,opts);
   // var newContact =  msg;
   //   newContact.createDate = new Date();
