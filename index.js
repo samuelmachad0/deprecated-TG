@@ -50,7 +50,7 @@ function checkNotification(chatId){
 }
   
 bot.on('message', function (msg) {
-
+ console.log('UH UH PAPAI CHEGOU');
  var chatId = msg.chat.id;
  var notification = 'error';
  if( checkNotification(chatId) == 1 ){
