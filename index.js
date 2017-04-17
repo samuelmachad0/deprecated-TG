@@ -42,10 +42,10 @@ function checkNotification(chatId){
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
       console.log("VAI CAVALA");
-      return ' Desativar Notificações';     
+      return 1;     
     } else {
       console.log("VAI BISCATE");
-      return ' Ativar Notificações';
+      return 2;
     }
     });
   
@@ -54,12 +54,20 @@ function checkNotification(chatId){
 bot.on('message', function (msg) {
  console.log('UH UH PAPAI CHEGOU');
  var chatId = msg.chat.id;
-
+ var notification = 'error';
+ if( checkNotification(chatId) == 1 ){
+  console.log("foi aqui delicia");
+ 	notification = '🚫 Desativar Notificações';
+ } else {
+  console.log("NAO foi aqui delicia");
+ 	 notification = '✅ Ativar Notificações';
+ }
+ 
  var opts = {
       reply_to_message_id: msg.message_id,
       reply_markup: JSON.stringify({
         keyboard: [
-          [ checkNotification(chatId) ],
+          [notification],
           ['Verificar Leitura']]
       })
     };
