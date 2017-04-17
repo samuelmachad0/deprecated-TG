@@ -46,8 +46,8 @@ bot.on('message', function (msg) {
   console.log("Removido");
  }
  if (msg.text.match("✅ Ativar Notificações")) {
-    var doc = {chat_id: chatId, name: msg.chat.first_name, type: "User"  };
-    db.collection('users').update({chat_id:chatId}, {doc}, {upsert:true, safe:false}, 
+    var doc = {_id: chatId, name: msg.chat.first_name, type: "User"  };
+    db.collection('users').update({_id:chatId}, {doc}, {upsert:true, safe:false}, 
   function(err,data){
         if (err){
             console.log(err);
@@ -63,7 +63,7 @@ bot.on('message', function (msg) {
 
  }
 
- db.collection('users').count({ chat_id: chatId }, function(err, countDocuments) {
+ db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
        var opts = {
