@@ -56,6 +56,7 @@ bot.on('message', function (msg) {
  }
 
  db.collection('users').count({ chat_id: chatId }, function(err, countDocuments) {
+    console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
        var opts = {
             reply_to_message_id: msg.message_id,
