@@ -42,15 +42,20 @@ bot.on('message', function (msg) {
  var chatId = msg.chat.id;
  
  if (msg.text.match("🚫 Desativar Notificações")) {
-    console.log("Remover!");
+  db.collection('users').remove({ chat_id: chatId });
+  console.log("Removido");
  }
  if (msg.text.match("✅ Ativar Notificações")) {
+    var doc = {chat_id: chatId, name: msg.message.from.first_name, type: "User"  };
+    db.collection('users').insert(doc);
+
     console.log("Incluir!");
  }
  if (msg.text.match("Verificar Leitura")) {
       console.log("Leia");
 
  }
+
  db.collection('users').count({ chat_id: chatId }, function(err, countDocuments) {
     if(parseInt(countDocuments) > 0){
        var opts = {
