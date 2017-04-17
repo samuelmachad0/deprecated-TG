@@ -40,10 +40,12 @@ var bot = new TelegramBot(token, { polling: true });
 function checkNotification(chatId){
 	  db.collection('users').count({ chat_id: chatId }, function(err, countDocuments) {
     console.log(countDocuments);
-    if(countDocuments > 0){
+    if(parseInt(countDocuments) > 0){
+      console.log("VAI CAVALA");
       return true;     
     }
     });
+    console.log("VAI BISCATE");
 	  return false;
 }
   
