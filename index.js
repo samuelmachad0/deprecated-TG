@@ -42,7 +42,7 @@ bot.on('message', function (msg) {
  var chatId = msg.chat.id;
  
  if (msg.text.match("🚫 Desativar Notificações")) {
-  db.collection('users').remove({ chat_id: chatId });
+  db.collection('users').remove({ _id: chatId });
   console.log("Removido");
  }
  if (msg.text.match("✅ Ativar Notificações")) {
