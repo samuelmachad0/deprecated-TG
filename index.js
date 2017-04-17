@@ -38,16 +38,11 @@ var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 var bot = new TelegramBot(token, { polling: true });
 
 function checkNotification(chatId){
-  //db.collection('users').count({ chat_id: chatId } )  ;
-	  db.collection('users').count({ chat_id: chatId }, function(err, doc) {
-    		console.log(doc);
-		// if(doc){
-		// 			return true;
-
-		// }
-	
+	  db.collection('users').count({ chat_id: chatId }, function(err, count) {
+    if(count > 0){
+      return true     
+    }
     });
-
 	  return false;
 }
   
@@ -55,7 +50,7 @@ bot.on('message', function (msg) {
 
  var chatId = msg.chat.id;
  var notification = 'error';
- if( checkNotification(chatId) == false){
+ if( checkNotification(chatId) == true){
  	notification = '🚫 Desativar Notificações';
  } else {
  	 notification = '✅ Ativar Notificações';
