@@ -65,7 +65,6 @@ bot.on('message', function (msg) {
                 ['Verificar Leitura']]
             })
           };
-      return 2;
     }
     });
 
