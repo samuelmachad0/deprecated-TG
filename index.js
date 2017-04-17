@@ -40,7 +40,7 @@ var bot = new TelegramBot(token, { polling: true });
 function checkNotification(chatId){
 	  db.collection('users').count({ chat_id: chatId }, function(err, count) {
     if(count > 0){
-      return true     
+      return true;     
     }
     });
 	  return false;
