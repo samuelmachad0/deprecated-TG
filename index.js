@@ -42,10 +42,10 @@ function checkNotification(chatId){
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
       console.log("VAI CAVALA");
-      return 1;     
+      return '🚫 Desativar Notificações';     
     } else {
       console.log("VAI BISCATE");
-      return 2;
+      return '✅ Ativar Notificações';
     }
     });
   
@@ -54,18 +54,12 @@ function checkNotification(chatId){
 bot.on('message', function (msg) {
  console.log('UH UH PAPAI CHEGOU');
  var chatId = msg.chat.id;
- var notification = 'error';
- if( checkNotification(chatId) == 1 ){
- 	notification = '🚫 Desativar Notificações';
- } else {
- 	 notification = '✅ Ativar Notificações';
- }
- 
+
  var opts = {
       reply_to_message_id: msg.message_id,
       reply_markup: JSON.stringify({
         keyboard: [
-          [notification],
+          [ checkNotification(chatId) ],
           ['Verificar Leitura']]
       })
     };
