@@ -132,7 +132,7 @@ app.get("/sensor/:value", function(req, res) {
 		  var cursor = db.collection('users').find();
       cursor.each(function(err, user) {
           if(user != null){
-          sendShit("Houve a seguinte mudança no sensor:" + doc.status,user._id,0);
+          sendShit("Houve a seguinte mudança no sensor: " + status,user._id,0);
           console.log(user._id);
    
           }
