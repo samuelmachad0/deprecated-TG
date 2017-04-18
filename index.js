@@ -4,7 +4,9 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongo-sync");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
+var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 
+var bot = new TelegramBot(token, { polling: true });
 var COLLECTION = "users";
 
 var app = express();
@@ -34,9 +36,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
 // CONTACTS API ROUTES BELOW
 
-var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 
-var bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', function (msg) {
  var response = "Tente novamente!";
