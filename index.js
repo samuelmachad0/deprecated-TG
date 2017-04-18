@@ -122,7 +122,7 @@ app.get("/sensor/:value/:token", function(req, res) {
       if(req.params.token != doc.token){
         console.log("hueheu");
         //{ message: 'Problemas com o token', status: 'error'}
-        res.status(204).json( { message: 'Problemas com o token', status: 'error'} );
+        res.send( { message: 'Problemas com o token', status: 'error'} );
         return 0;
       }
       var status;
