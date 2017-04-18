@@ -45,7 +45,7 @@ bot.on('message', function (msg) {
  if (msg.text.match("🚫 Desativar Notificações")) {
   db.collection('users').remove({ _id: chatId });
 
-  sendShit("Removido com sucesso 👍",msg);
+  responseReply("Removido com sucesso 👍",msg);
   console.log("Removido");
 //  exit(1);
  }
@@ -60,12 +60,12 @@ bot.on('message', function (msg) {
         }
     }
       );
-    sendShit("Quando o sensor mudar de status você será notificado. 😃",msg);
+    responseReply("Quando o sensor mudar de status você será notificado. 😃",msg);
     console.log("Incluir!");
  }
  if (msg.text.match("Verificar Leitura")) {
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        sendShit(doc.status,msg);
+        responseReply(doc.status,msg);
       });
  }
 
@@ -78,36 +78,38 @@ bot.on('message', function (msg) {
 
 });
 
-function sendShit(response,msg){
-   db.collection('users').count({ _id: msg.chat.id }, function(err, countDocuments) {
+function sendShit(response,chatId, message_id = 0){
+   db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
        var opts = {
-            reply_to_message_id: msg.message_id,
+            reply_to_message_id: message_id,
             reply_markup: JSON.stringify({
               keyboard: [
                 ['🚫 Desativar Notificações'],
                 ['Verificar Leitura']]
             })
           };
-            bot.sendMessage(msg.chat.id,  response ,opts);
+            bot.sendMessage(chatId,  response ,opts);
 
     } else {
        var opts = {
-            reply_to_message_id: msg.message_id,
+            reply_to_message_id: message_id,
             reply_markup: JSON.stringify({
               keyboard: [
                 ['✅ Ativar Notificações'],
                 ['Verificar Leitura']]
             })
           };
-          bot.sendMessage(msg.chat.id,  response,opts);
+          bot.sendMessage(chatId,  response,opts);
     }
     });
 
 }
 
-
+function responseReply(response,msg){
+  sendShit(response,msg.chat.id,msg.message_id);
+}
 
 
 app.get("/sensor/:value", function(req, res) {
@@ -119,18 +121,19 @@ app.get("/sensor/:value", function(req, res) {
     } else {
       
     	switch(req.params.value){
-    	case '1':  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; console.log("VERDE"); break;
+    	case '1':  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
 			case '2':  doc.status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
 			case '3':  doc.status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
-			default:  doc.status =   "⚠ ⚠ ⚠ CalibrandoX... ⚠ ⚠ ⚠"; break;
+			default:  doc.status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
     	}
     	 doc.date = new Date();
 		 db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
-		    if (err) {
-		      handleError(res, err.message, "Failed to update contact");
-		    } else {
+		  var cursor = db.collection('users').find();
+      cursor.each(function(err, user) {
+          sendShit(user.doc.name.", tivemos a seguinte mudança no sensor:" doc.status,user._id);
+       });
 		      res.status(204).end();
-		    }
+		    
 		  });    			
 		        res.status(200).json(doc);
     }
