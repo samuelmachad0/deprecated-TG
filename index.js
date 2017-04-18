@@ -130,7 +130,7 @@ app.get("/sensor/:value", function(req, res) {
 		 db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
 		  var cursor = db.collection('users').find();
       cursor.each(function(err, user) {
-          sendShit(user.name + " tivemos a seguinte mudança no sensor:" + doc.status,user._id,0);
+          sendShit("Houve a seguinte mudança no sensor:" + doc.status,user._id,0);
           console.log(user._id);
        });
 		      res.status(204).end();
