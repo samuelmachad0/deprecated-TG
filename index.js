@@ -49,7 +49,7 @@ console.log(`${URL}/bot${TOKEN}`);
 bot.on('polling_error', (error) => console.log(error.code));
 bot.on('webhook_error', (error) => console.log(error.code));
 
-bot.setWebHook(`${URL}/bot${TOKEN}/message`);
+bot.setWebHook(`${URL}/bot${TOKEN}`);
 
 bot.on('message', function (msg) {
  var response = "Tente novamente!";
