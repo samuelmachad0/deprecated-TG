@@ -78,7 +78,7 @@ bot.on('message', function (msg) {
 
 });
 
-function sendShit(response,chatId, message_id = false){
+function sendShit(response,chatId, message_id){
    db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
@@ -130,7 +130,7 @@ app.get("/sensor/:value", function(req, res) {
 		 db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
 		  var cursor = db.collection('users').find();
       cursor.each(function(err, user) {
-          sendShit(user.doc.name.", tivemos a seguinte mudança no sensor:" doc.status,user._id);
+          sendShit(user.doc.name.", tivemos a seguinte mudança no sensor:" doc.status,user._id,0);
        });
 		      res.status(204).end();
 		    
