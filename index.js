@@ -11,7 +11,6 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 var db;
 
-
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
     console.log(err);
@@ -28,34 +27,30 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   });
 });
 
-
 bot.on('message', function (msg) {
- var response = "Tente novamente!";
- var chatId = msg.chat.id;
- 
- if (msg.text.match("🚫 Desativar Notificações")) {
-  db.collection('users').remove({ _id: chatId });
+  var response = "Tente novamente!";
+  var chatId = msg.chat.id;
 
-  responseReply("Removido com sucesso 👍",msg);
-
- }
- if (msg.text.match("✅ Ativar Notificações")) {
+  if (msg.text.match("🚫 Desativar Notificações")) {
+    db.collection('users').remove({ _id: chatId });
+    responseReply("Removido com sucesso 👍",msg);
+  }
+  if (msg.text.match("✅ Ativar Notificações")) {
     var user = {_id: chatId, name: msg.chat.first_name, type: "User"  };
     db.collection('users').update({_id:chatId}, {user}, {upsert:true, safe:false});
     responseReply("Quando o sensor mudar de status você será notificado. 😃",msg);
-    console.log("Incluir!");
- }
- if (msg.text.match("Verificar Leitura")) {
-      db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        responseReply(doc.status,msg);
-      });
- }
+  }
+
+  if (msg.text.match("Verificar Leitura")) {
+    db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
+      responseReply(doc.status,msg);
+    });
+  }
 
 });
 
-function sendShit(response,chatId, message_id){
-   db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
-    console.log(countDocuments);
+function send(response,chatId, message_id){
+  db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     if(parseInt(countDocuments) > 0){
        var opts = {
             reply_to_message_id: message_id,
@@ -65,8 +60,7 @@ function sendShit(response,chatId, message_id){
                 ['Verificar Leitura']]
             })
           };
-            bot.sendMessage(chatId,  response ,opts);
-
+        bot.sendMessage(chatId,  response ,opts);
     } else {
        var opts = {
             reply_to_message_id: message_id,
@@ -76,53 +70,39 @@ function sendShit(response,chatId, message_id){
                 ['Verificar Leitura']]
             })
           };
-          bot.sendMessage(chatId,  response,opts);
+        bot.sendMessage(chatId,  response,opts);
     }
-    });
-
+  });
 }
 
 function responseReply(response,msg){
-  sendShit(response,msg.chat.id,msg.message_id);
-
+  send(response,msg.chat.id,msg.message_id);
 }
 
 
 app.get("/sensor/:value/:token", function(req, res) {
-
   db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to get contact");
-    } else {
-      if(req.params.token != doc.token){
-        res.send( { message: 'Problemas com o token', status: 'error'} );
-       
-      }
-      var status;
-    	switch(req.params.value){
-    	case '1':  status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
-			case '2':  status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
-			case '3':  status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
-			default:  status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
-    	}
-      doc.status = status;
-    	 doc.date = new Date();
-		 db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
-		  var cursor = db.collection('users').find();
-      cursor.each(function(err, user) {
-          if(user != null && user._id == '153878723'){
-          sendShit("Houve a seguinte mudança no sensor: " +   status,user._id,0);
-          console.log(user._id);
-   
-          }
-                });
-        res.send( { message: 'Realizado com sucesso', status: 'success'} );
-		    
-		  });    			
-      
-        res.send( { message: 'Erro ao atualizar sensor', status: 'error'} );
+    if(req.params.token != doc.token){
+      res.send( { message: 'Problemas com o token', status: 'error'} );
     }
+    var status;
+    switch(req.params.value){
+    	case '1':  status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
+  		case '2':  status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
+  		case '3':  status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
+  		default:  status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
+    }
+    doc.status = status;
+    doc.date = new Date();
+  	db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
+    	var cursor = db.collection('users').find();
+      cursor.each(function(err, user) {
+        if(user != null && user._id == '153878723'){
+          send("Houve a seguinte mudança no sensor: " +   status,user._id,0);
+        }
+       });
+      res.send( { message: 'Realizado com sucesso', status: 'success'} );
+  	});    			
+    res.send( { message: 'Erro ao atualizar sensor', status: 'error'} );
   });
-
 });
-
