@@ -113,7 +113,7 @@ function sendShit(response,msg){
 app.get("/sensor/:value", function(req, res) {
 //	  var re = db.collection('bot').findOne();
 
-  db.collection('bot').find({ _id: '1' }, function(err, doc) {
+  db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get contact");
     } else {
