@@ -37,7 +37,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
 // CONTACTS API ROUTES BELOW
 
-   const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
+   const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4/message';
     // Bot
     const botOptions = {
       webHook: {
