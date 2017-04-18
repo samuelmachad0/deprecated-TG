@@ -45,6 +45,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
       }
     };
 const bot = new TelegramBot(TOKEN, botOptions);
+console.log(`${URL}/bot${TOKEN}`);
+
 bot.setWebHook(`${URL}/bot${TOKEN}`);
 
 bot.on('message', function (msg) {
