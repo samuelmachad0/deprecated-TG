@@ -78,7 +78,7 @@ bot.on('message', function (msg) {
 
 });
 
-function sendShit(response,chatId, message_id = ''){
+function sendShit(response,chatId, message_id = false){
    db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
