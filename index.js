@@ -144,7 +144,7 @@ app.get("/sensor/:value/:token", function(req, res) {
 		      res.status(204).end();
 		    
 		  });    			
-		        res.status(200).json({ message: 'Realizado com sucesso', status: 'success'}).end();
+		        res.status(204).json({ message: 'Realizado com sucesso', status: 'success'}).end();
     }
   });
 
