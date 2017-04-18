@@ -119,13 +119,14 @@ app.get("/sensor/:value", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed to get contact");
     } else {
-      
+      var status;
     	switch(req.params.value){
-    	case '1':  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
-			case '2':  doc.status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
-			case '3':  doc.status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
-			default:  doc.status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
+    	case '1':  status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
+			case '2':  status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
+			case '3':  status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
+			default:  status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
     	}
+      doc.status = status;
     	 doc.date = new Date();
 		 db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
 		  var cursor = db.collection('users').find();
