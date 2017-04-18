@@ -106,6 +106,4 @@ app.get("/sensor/:value/:token", function(req, res) {
       return 0;
   	});    			
   });
-  res.send( { message: 'Erro ao atualizar sensor', status: 'error'} );
-  return 0;
 });
