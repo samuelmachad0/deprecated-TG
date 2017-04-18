@@ -117,12 +117,12 @@ app.get("/sensor/:value", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed to get contact");
     } else {
-      console.log("sssssssssss ",req.params.value)
+      
     	switch(req.params.value){
-    	case 1:  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; console.log("VERDE"); break;
-			case 2:  doc.status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
-			case 3:  doc.status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
-			default:  doc.status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
+    	case '1':  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; console.log("VERDE"); break;
+			case '2':  doc.status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
+			case '3':  doc.status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
+			default:  doc.status =   "⚠ ⚠ ⚠ CalibrandoX... ⚠ ⚠ ⚠"; break;
     	}
     	 doc.date = new Date();
 		 db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
