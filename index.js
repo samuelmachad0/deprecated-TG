@@ -38,7 +38,7 @@ var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 var bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', function (msg) {
- 
+ var response = "Tente novamente!";
  var chatId = msg.chat.id;
  
  if (msg.text.match("🚫 Desativar Notificações")) {
@@ -60,9 +60,9 @@ bot.on('message', function (msg) {
  }
  if (msg.text.match("Verificar Leitura")) {
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-         bot.sendMessage(doc.status,  msg.chat.id);
+        response = doc.status;
+
       });
-    console.log("Leia");
 
  }
 
