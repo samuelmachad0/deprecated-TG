@@ -37,7 +37,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
 // CONTACTS API ROUTES BELOW
 
-   const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4/message';
+   const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
     // Bot
     const botOptions = {
       webHook: {
@@ -46,6 +46,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
     };
 const bot = new TelegramBot(TOKEN, botOptions);
 console.log(`${URL}/bot${TOKEN}`);
+bot.on('polling_error', (error) => console.log(error.code));
+bot.on('webhook_error', (error) => console.log(error.code));
 
 bot.setWebHook(`${URL}/bot${TOKEN}`);
 
