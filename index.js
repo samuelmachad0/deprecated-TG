@@ -83,7 +83,7 @@ function responseReply(response,msg){
 app.get("/sensor/:value/:token", function(req, res) {
   db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
     if(req.params.token != doc.token){
-      res.send( { message: 'Problemas com o token', status: 'error'} );
+      res.send( { message: 'Token inválido', status: 'error'} );
       return 0;
     }
     var status;
@@ -106,4 +106,6 @@ app.get("/sensor/:value/:token", function(req, res) {
       return 0;
   	});    			
   });
+  res.send( { message: 'Erro ao atualizar sensor', status: 'error'} );
+  return 0;
 });
