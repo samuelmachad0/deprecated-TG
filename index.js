@@ -45,7 +45,7 @@ bot.on('message', function (msg) {
  if (msg.text.match("🚫 Desativar Notificações")) {
   db.collection('users').remove({ _id: chatId });
 
-  sendShit("Removido com sucesso 👍");
+  sendShit("Removido com sucesso 👍",chatId);
   console.log("Removido");
 //  exit(1);
  }
@@ -60,12 +60,12 @@ bot.on('message', function (msg) {
         }
     }
       );
-    sendShit("Quando o sensor mudar de status você será notificado. 😃");
+    sendShit("Quando o sensor mudar de status você será notificado. 😃",chatId);
     console.log("Incluir!");
  }
  if (msg.text.match("Verificar Leitura")) {
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        sendShit(doc.status);
+        sendShit(doc.status,chatId);
       });
  }
 
@@ -78,7 +78,7 @@ bot.on('message', function (msg) {
 
 });
 
-function sendShit(response){
+function sendShit(response,chatId){
    db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
