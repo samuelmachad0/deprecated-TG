@@ -60,9 +60,6 @@ bot.on('message', function (msg) {
  }
  if (msg.text.match("Verificar Leitura")) {
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        console.log(doc.status);
-        console.log("ava");
-
         response = doc.status;
       });
 
@@ -79,7 +76,7 @@ bot.on('message', function (msg) {
                 ['Verificar Leitura']]
             })
           };
-            bot.sendMessage(chatId,  msg.chat.id,opts);
+            bot.sendMessage(chatId,  response ,opts);
 
     } else {
        var opts = {
