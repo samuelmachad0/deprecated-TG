@@ -118,7 +118,7 @@ app.get("/sensor/:value", function(req, res) {
       handleError(res, err.message, "Failed to get contact");
     } else {
     	switch(req.params.value){
-    		case 1:  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
+    	case 1:  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; console.log("VERDE"); break;
 			case 2:  doc.status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
 			case 3:  doc.status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
 			default:  doc.status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
