@@ -120,10 +120,7 @@ app.get("/sensor/:value/:token", function(req, res) {
       handleError(res, err.message, "Failed to get contact");
     } else {
       if(req.params.token != doc.token){
-        console.log("hueheu");
-        //{ message: 'Problemas com o token', status: 'error'}
-        res.send( { message: 'Problemas com o token', status: 'error'} );
-        return 0;
+        finishRequest('Token inválido','error');
       }
       var status;
     	switch(req.params.value){
@@ -143,19 +140,16 @@ app.get("/sensor/:value/:token", function(req, res) {
    
           }
                 });
-        res.status(204).send( { message: 'Realizado com sucesso', status: 'success'} );
+      finishRequest('Realizado com sucesso','success');
 		    
 		  });    			
-     
-        res.status(204).send( { message: 'Erro ao atualizar sensor', status: 'error'} );
+        finishRequest('Erro ao atualizar sensor','error');
+        
     }
   });
 
-
-  
-  // sensor.status = req.params.valueSensor;
-
-  // db.collection(COLLECTION).updateOne({_id: sensor._id}, sensor, function(err, doc) {
-   
-  // });
 });
+
+function finishRequest(message,status){
+  res.send({ message: message ,status: status } );
+}
