@@ -39,19 +39,19 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 // CONTACTS API ROUTES BELOW
 
    const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
-    // Bot
-    const botOptions = {
-      webHook: {
-        port: SERVERPORT
-      }
-    };
+    // // Bot
+    // const botOptions = {
+    //   webHook: {
+    //     port: SERVERPORT
+    //   }
+    // };
     console.log("port",SERVERPORT);
-const bot = new TelegramBot(TOKEN, botOptions);
-console.log(`${URL}/bot${TOKEN}`);
-bot.on('polling_error', (error) => console.log(error.code));
-bot.on('webhook_error', (error) => console.log(error.code));
+const bot = new TelegramBot(TOKEN);
+//console.log(`${URL}/bot${TOKEN}`);
+//bot.on('polling_error', (error) => console.log(error.code));
+//bot.on('webhook_error', (error) => console.log(error.code));
 
-bot.setWebHook(`${URL}/bot${TOKEN}`);
+//bot.setWebHook(`${URL}/bot${TOKEN}`);
 
 bot.on('message', function (msg) {
  var response = "Tente novamente!";
