@@ -4,7 +4,6 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
-const PORT = process.env.PORT;
 const URL = process.env.APP_URL;
 
 var COLLECTION = "users";
@@ -40,7 +39,7 @@ const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 // Bot
 const botOptions = {
   webHook: {
-    port: PORT
+    port: port
   }
 };
 
