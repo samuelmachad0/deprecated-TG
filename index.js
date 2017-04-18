@@ -4,8 +4,6 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
-const URL = process.env.APP_URL;
-const SERVERPORT = process.env.PORT;
 
 var COLLECTION = "users";
 
@@ -31,27 +29,14 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
- 
-
   });
 });
 
 // CONTACTS API ROUTES BELOW
 
-   const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
-    // // Bot
-    // const botOptions = {
-    //   webHook: {
-    //     port: SERVERPORT
-    //   }
-    // };
-    console.log("port",SERVERPORT);
-const bot = new TelegramBot(TOKEN);
-//console.log(`${URL}/bot${TOKEN}`);
-//bot.on('polling_error', (error) => console.log(error.code));
-//bot.on('webhook_error', (error) => console.log(error.code));
+var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 
-//bot.setWebHook(`${URL}/bot${TOKEN}`);
+var bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', function (msg) {
  var response = "Tente novamente!";
@@ -122,27 +107,27 @@ bot.on('message', function (msg) {
 
 
 app.get("/sensor/:value", function(req, res) {
-//    var re = db.collection('bot').findOne();
+//	  var re = db.collection('bot').findOne();
 
   db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get contact");
     } else {
-      switch(req.params.value){
-        case 1:  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅";
-      case 2:  doc.status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
-      case 3:  doc.status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
-      default:  doc.status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
-      }
-       doc.date = new Date();
-     db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
-        if (err) {
-          handleError(res, err.message, "Failed to update contact");
-        } else {
-          res.status(204).end();
-        }
-      });         
-            res.status(200).json(doc);
+    	switch(req.params.value){
+    		case 1:  doc.status = "✅ ✅ ✅ Verde ✅ ✅ ✅";
+			case 2:  doc.status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
+			case 3:  doc.status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
+			default:  doc.status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
+    	}
+    	 doc.date = new Date();
+		 db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
+		    if (err) {
+		      handleError(res, err.message, "Failed to update contact");
+		    } else {
+		      res.status(204).end();
+		    }
+		  });    			
+		        res.status(200).json(doc);
     }
   });
 
