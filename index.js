@@ -5,37 +5,28 @@ var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
 var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
-
 var bot = new TelegramBot(token, { polling: true });
-var COLLECTION = "users";
-
 var app = express();
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
-
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
-// Connect to the database before starting the application server.
+
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
   }
 
-  // Save database object from the callback for reuse.
   db = database;
-  console.log("Database connection ready");
+  console.log("Banco de dados pronto para uso");
 
-  // Initialize the app.
+  // Inicialização do servidor.
   var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
-    console.log("App now running on port", port);
+    console.log("Aplicação rodando na porta ", port);
   });
 });
-
-// CONTACTS API ROUTES BELOW
-
 
 
 bot.on('message', function (msg) {
@@ -46,20 +37,11 @@ bot.on('message', function (msg) {
   db.collection('users').remove({ _id: chatId });
 
   responseReply("Removido com sucesso 👍",msg);
-  console.log("Removido");
-//  exit(1);
+
  }
  if (msg.text.match("✅ Ativar Notificações")) {
     var user = {_id: chatId, name: msg.chat.first_name, type: "User"  };
-    db.collection('users').update({_id:chatId}, {user}, {upsert:true, safe:false}, 
-  function(err,data){
-        if (err){
-            console.log(err);
-        }else{
-            console.log("score succeded");
-        }
-    }
-      );
+    db.collection('users').update({_id:chatId}, {user}, {upsert:true, safe:false});
     responseReply("Quando o sensor mudar de status você será notificado. 😃",msg);
     console.log("Incluir!");
  }
@@ -68,13 +50,6 @@ bot.on('message', function (msg) {
         responseReply(doc.status,msg);
       });
  }
-
-
-  // var newContact =  msg;
-  //   newContact.createDate = new Date();
-  // db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
-   
-  // });
 
 });
 
@@ -109,11 +84,11 @@ function sendShit(response,chatId, message_id){
 
 function responseReply(response,msg){
   sendShit(response,msg.chat.id,msg.message_id);
+
 }
 
 
 app.get("/sensor/:value/:token", function(req, res) {
-//	  var re = db.collection('bot').findOne();
 
   db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
     if (err) {
