@@ -143,11 +143,11 @@ app.get("/sensor/:value/:token", function(req, res) {
    
           }
                 });
-        res.status(204).json( JSON.stringify({ message: 'Realizado com sucesso', status: 'success'}) );
+        res.status(204).json( { message: 'Realizado com sucesso', status: 'success'} );
 		    
 		  });    			
      
-        res.status(204).json( JSON.stringify({ message: 'Erro ao atualizar sensor', status: 'error'}) );
+        res.status(204).json( { message: 'Erro ao atualizar sensor', status: 'error'} );
     }
   });
 
