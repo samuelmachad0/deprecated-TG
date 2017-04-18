@@ -60,8 +60,10 @@ bot.on('message', function (msg) {
  }
  if (msg.text.match("Verificar Leitura")) {
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        response = doc.status;
+        console.log(doc.status);
+        console.log("ava");
 
+        response = doc.status;
       });
 
  }
