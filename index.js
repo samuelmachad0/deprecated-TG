@@ -39,7 +39,7 @@ const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 // Bot
 const botOptions = {
   webHook: {
-    port: port
+    port: process.env.PORT
   }
 };
 
