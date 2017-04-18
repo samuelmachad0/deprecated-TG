@@ -46,8 +46,8 @@ bot.on('message', function (msg) {
   console.log("Removido");
  }
  if (msg.text.match("✅ Ativar Notificações")) {
-    var doc = {_id: chatId, name: msg.chat.first_name, type: "User"  };
-    db.collection('users').update({_id:chatId}, {doc}, {upsert:true, safe:false}, 
+    var user = {_id: chatId, name: msg.chat.first_name, type: "User"  };
+    db.collection('users').update({_id:chatId}, {user}, {upsert:true, safe:false}, 
   function(err,data){
         if (err){
             console.log(err);
@@ -59,7 +59,10 @@ bot.on('message', function (msg) {
     console.log("Incluir!");
  }
  if (msg.text.match("Verificar Leitura")) {
-      console.log("Leia");
+      db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
+         bot.sendMessage(doc.status,  msg.chat.id);
+      });
+    console.log("Leia");
 
  }
 
