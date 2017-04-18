@@ -5,7 +5,8 @@ var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
 const URL = process.env.APP_URL;
-var port;
+const SERVERPORT = process.env.PORT;
+
 var COLLECTION = "users";
 
 var app = express();
@@ -28,7 +29,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
   // Initialize the app.
   var server = app.listen(process.env.PORT || 8080, function () {
-    port = server.address().port;
+    var port = server.address().port;
     console.log("App now running on port", port);
  
 
@@ -41,9 +42,10 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
     // Bot
     const botOptions = {
       webHook: {
-        port: process.env.PORT
+        port: SERVERPORT
       }
     };
+    console.log("port",SERVERPORT);
 const bot = new TelegramBot(TOKEN, botOptions);
 console.log(`${URL}/bot${TOKEN}`);
 bot.on('polling_error', (error) => console.log(error.code));
