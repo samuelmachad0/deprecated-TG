@@ -122,7 +122,7 @@ app.get("/sensor/:value/:token", function(req, res) {
       if(req.params.token != doc.token){
         console.log("hueheu");
         //{ message: 'Problemas com o token', status: 'error'}
-        res.status(204).json( JSON.stringify({ message: 'Problemas com o token', status: 'error'}) );
+        res.status(204).send( { message: 'Problemas com o token', status: 'error'} );
         return 0;
       }
       var status;
@@ -143,11 +143,11 @@ app.get("/sensor/:value/:token", function(req, res) {
    
           }
                 });
-        res.status(204).json( { message: 'Realizado com sucesso', status: 'success'} );
+        res.status(204).send( { message: 'Realizado com sucesso', status: 'success'} );
 		    
 		  });    			
      
-        res.status(204).json( { message: 'Erro ao atualizar sensor', status: 'error'} );
+        res.status(204).send( { message: 'Erro ao atualizar sensor', status: 'error'} );
     }
   });
 
