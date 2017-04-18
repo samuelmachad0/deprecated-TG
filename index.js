@@ -88,7 +88,7 @@ bot.on('message', function (msg) {
                 ['Verificar Leitura']]
             })
           };
-          bot.sendMessage(chatId,  msg.chat.id,opts);
+          bot.sendMessage(chatId,  response,opts);
 
     }
     });
