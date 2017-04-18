@@ -123,7 +123,7 @@ app.get("/sensor/:value/:token", function(req, res) {
         console.log("hueheu");
         //{ message: 'Problemas com o token', status: 'error'}
         res.status(204).end( JSON.stringify({ message: 'Problemas com o token', status: 'error'}) );
-
+        return 0;
       }
       var status;
     	switch(req.params.value){
