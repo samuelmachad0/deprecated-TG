@@ -44,6 +44,7 @@ bot.on('message', function (msg) {
  
  if (msg.text.match("🚫 Desativar Notificações")) {
   db.collection('users').remove({ _id: chatId });
+  response = "Removido com sucesso 👍";
   console.log("Removido");
  }
  if (msg.text.match("✅ Ativar Notificações")) {
@@ -57,6 +58,7 @@ bot.on('message', function (msg) {
         }
     }
       );
+    response = "Quando o sensor mudar de status você será notificado. 👍";
     console.log("Incluir!");
  }
  if (msg.text.match("Verificar Leitura")) {
