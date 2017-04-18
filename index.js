@@ -90,7 +90,7 @@ app.get("/sensor/:value/:token", function(req, res) {
     	case '1':  status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
   		case '2':  status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
   		case '3':  status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
-  		default:  status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
+  		default:   status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
     }
     doc.status = status;
     doc.date = new Date();
@@ -102,6 +102,7 @@ app.get("/sensor/:value/:token", function(req, res) {
         }
        });
       res.send( { message: 'Realizado com sucesso', status: 'success'} );
+      return 0;
   	});    			
     res.send( { message: 'Erro ao atualizar sensor', status: 'error'} );
   });
