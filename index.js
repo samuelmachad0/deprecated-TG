@@ -4,6 +4,8 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
+const PORT = process.env.PORT;
+const URL = process.env.APP_URL;
 
 var COLLECTION = "users";
 
@@ -34,8 +36,16 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
 // CONTACTS API ROUTES BELOW
 
-var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
-var bot = new TelegramBot(token, { polling: true });
+const token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
+// Bot
+const botOptions = {
+  webHook: {
+    port: PORT
+  }
+};
+
+const bot = new TelegramBot(TOKEN, botOptions);
+bot.setWebHook(`${URL}/bot${TOKEN}`);
 
 bot.on('message', function (msg) {
  var response = "Tente novamente!";
