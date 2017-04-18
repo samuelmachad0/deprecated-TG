@@ -1,7 +1,7 @@
 var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
-var mongodb = require("mongodb");
+var mongodb = require("mongo-sync");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
 
@@ -44,8 +44,10 @@ bot.on('message', function (msg) {
  
  if (msg.text.match("🚫 Desativar Notificações")) {
   db.collection('users').remove({ _id: chatId });
-  response = "Removido com sucesso 👍";
+
+  sendShit("Removido com sucesso 👍");
   console.log("Removido");
+//  exit(1);
  }
  if (msg.text.match("✅ Ativar Notificações")) {
     var user = {_id: chatId, name: msg.chat.first_name, type: "User"  };
@@ -58,17 +60,26 @@ bot.on('message', function (msg) {
         }
     }
       );
-    response = "Quando o sensor mudar de status você será notificado. 👍";
+    sendShit("Quando o sensor mudar de status você será notificado. 😃");
     console.log("Incluir!");
  }
  if (msg.text.match("Verificar Leitura")) {
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        response = doc.status;
+        sendShit(doc.status);
       });
-
  }
 
- db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
+
+  // var newContact =  msg;
+  //   newContact.createDate = new Date();
+  // db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
+   
+  // });
+
+});
+
+function sendShit(response="Tente novamente"){
+   db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     console.log(countDocuments);
     if(parseInt(countDocuments) > 0){
        var opts = {
@@ -95,15 +106,7 @@ bot.on('message', function (msg) {
     }
     });
 
-
-
-  // var newContact =  msg;
-  //   newContact.createDate = new Date();
-  // db.collection(COLLECTION).insertOne(newContact, function(err, doc) {
-   
-  // });
-
-});
+}
 
 
 
