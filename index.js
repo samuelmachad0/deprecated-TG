@@ -98,7 +98,8 @@ app.get("/sensor/:value/:token", function(req, res) {
   	db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
     	var cursor = db.collection('users').find();
       cursor.each(function(err, user) {
-        if(user != null){
+        //if(user != null && user._id == '153878723'){
+        if(user != null){  
           send("Houve a seguinte mudança no sensor: " +   status,user._id,0);
         }
        });
