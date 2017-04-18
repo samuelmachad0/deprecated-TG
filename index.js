@@ -5,7 +5,7 @@ var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 var TelegramBot = require('node-telegram-bot-api');
 const URL = process.env.APP_URL;
-const port;
+var port;
 var COLLECTION = "users";
 
 var app = express();
@@ -41,7 +41,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
     // Bot
     const botOptions = {
       webHook: {
-        port: port
+        port: process.env.PORT
       }
     };
 const bot = new TelegramBot(TOKEN, botOptions);
