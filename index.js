@@ -30,18 +30,19 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
+    const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
+    // Bot
+    const botOptions = {
+      webHook: {
+        port: port
+      }
+    };
+
   });
 });
 
 // CONTACTS API ROUTES BELOW
 
-const TOKEN = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
-// Bot
-const botOptions = {
-  webHook: {
-    port: process.env.PORT
-  }
-};
 
 const bot = new TelegramBot(TOKEN, botOptions);
 bot.setWebHook(`${URL}/bot${TOKEN}`);
