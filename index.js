@@ -120,7 +120,7 @@ app.get("/sensor/:value/:token", function(req, res) {
       handleError(res, err.message, "Failed to get contact");
     } else {
       if(req.params.token != doc.token){
-        res.status(204).end("Problemas com o token");
+        res.status(204).json({ message: 'Problemas com o token', status: 'error'});
       }
       var status;
     	switch(req.params.value){
@@ -143,7 +143,7 @@ app.get("/sensor/:value/:token", function(req, res) {
 		      res.status(204).end();
 		    
 		  });    			
-		        res.status(200).json(doc);
+		        res.status(200).json({ message: 'Realizado com sucesso', status: 'success'});
     }
   });
 
