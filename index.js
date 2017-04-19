@@ -30,23 +30,26 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 bot.on('message', function (msg) {
   var response = "Tente novamente!";
   var chatId = msg.chat.id;
-
-  if (msg.text.match("🚫 Desativar Notificações")) {
-    db.collection('users').remove({ _id: chatId });
-    responseReply("Removido com sucesso 👍",msg);
-  }
-  if (msg.text.match("✅ Ativar Notificações")) {
-    var user = {_id: chatId, name: msg.chat.first_name, type: "User"  };
-    db.collection('users').update({_id:chatId}, {user}, {upsert:true, safe:false});
-    responseReply("Quando o sensor mudar de status você será notificado. 😃",msg);
-  }
-
-  if (msg.text.match("Verificar Leitura")) {
-    db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-      responseReply(doc.status,msg);
+  switch(msg.text){
+    case '🚫 Desativar Notificações': 
+      db.collection('users').remove({ _id: chatId });
+      response = "Removido com sucesso 👍";
+    break;
+    case '✅ Ativar Notificações':
+      var user = {_id: chatId, name: msg.chat.first_name, type: "User"  };
+      db.collection('users').update({_id:chatId}, {user}, {upsert:true, safe:false});
+      response = "Quando o sensor mudar de status você será notificado. 😃";
+    break;
+    case 'Verificar Leitura':
+     db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
+      response = doc.status;
     });
+    break;
+    case '/start':
+      response = 'Olá! Vamos começar?';
+    break;     
   }
-
+  responseReply(response,msg);
 });
 
 function send(response,chatId, message_id){
