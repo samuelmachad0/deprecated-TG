@@ -10,11 +10,12 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "body-parser": "^1.13.3",
     "ejs": "2.4.1",
     "express": "4.13.3",
-    "node-telegram-bot-api": "^0.24.0",
+    "moment-timezone": "^0.5.13",
     "mongodb": "^2.1.6",
-    "body-parser": "^1.13.3"
+    "node-telegram-bot-api": "^0.24.0"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,3 @@
   ],
   "license": "MIT"
 }
-
-
-

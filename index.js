@@ -7,6 +7,7 @@ var TelegramBot = require('node-telegram-bot-api');
 var token = '235548784:AAHkS-f8J4D4LTM527TldPFHRKt0DL1ykB4';
 var bot = new TelegramBot(token, { polling: true });
 var app = express();
+var Moment = require('moment-timezone');
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 var db;
@@ -48,7 +49,7 @@ function readMessage(msg){
     break;
     case 'Verificar Leitura':
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        responseReply(doc.status,msg);
+        responseReply(doc.status+ " a última leitura foi em " + doc.date,msg);
       }); 
     break;
     case '/start':
