@@ -98,25 +98,25 @@ app.get("/sensor/:value/:token", function(req, res) {
     }
     var status;
     if(req.params.value){
-      switch(req.params.value){
-      	case '1':  status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
-    		case '2':  status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
-    		case '3':  status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
-      }
-      doc.status = status;
-      doc.date = Moment().tz('America/Sao_Paulo').format();
-    	db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
-      	var cursor = db.collection('users').find();
-        cursor.each(function(err, user) {
-          if(user && user._id == '153878723'){
-          //if(user){  
-            sendMessage("Houve a seguinte mudança no sensor: " +   status,user._id,0);
-          }
-         });
-      }
+    switch(req.params.value){
+    	case '1':  status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
+  		case '2':  status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
+  		case '3':  status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
+    }
+    doc.status = status;
+    doc.date = Moment().tz('America/Sao_Paulo').format();
+  	db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
+    	var cursor = db.collection('users').find();
+      cursor.each(function(err, user) {
+        if(user && user._id == '153878723'){
+        //if(user){  
+          sendMessage("Houve a seguinte mudança no sensor: " +   status,user._id,0);
+        }
+       });
       res.send( { message: 'Realizado com sucesso', status: 'success'} );
       return 0;
   	});    			
+    }
   });
 });
 
