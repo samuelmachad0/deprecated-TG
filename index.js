@@ -49,7 +49,7 @@ function readMessage(msg){
     break;
     case 'Verificar Leitura':
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        responseReply(doc.status+ " a última leitura foi em " + moment(doc.date).format('d/m/Y, h:mm:ss'),msg);
+        responseReply(doc.status+ " a última leitura foi realizada em " + doc.date,msg);
       }); 
     break;
     case '/start':
