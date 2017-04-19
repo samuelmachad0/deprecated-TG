@@ -41,13 +41,12 @@ function readMessage(msg){
     break;
     case '✅ Ativar Notificações':
       var user = {_id: msg.chat.id, name: msg.chat.first_name, type: "User"  };
-      db.collection('users').update({_id:msg.chat.id}, {user}, {upsert:true, safe:false}, function(err, doc) {
+      db.collection('users').update({_id:msg.chat.id}, {user}, {upsert:true, safe:false}, function(err, doc){
         responseReply("Quando o sensor mudar de status você será notificado. 😃",msg);
       });
     break;
     case 'Verificar Leitura':
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        
         responseReply(doc.status+ " a última leitura foi realizada em " + convertDate(doc.date),msg);
       }); 
     break;
@@ -59,6 +58,7 @@ function readMessage(msg){
     break;     
   }
 }
+
 function sendMessage(response,chatId, message_id){
   db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     if(parseInt(countDocuments) > 0){
@@ -70,7 +70,7 @@ function sendMessage(response,chatId, message_id){
                 ['Verificar Leitura']]
             })
           };
-        bot.sendMessage(chatId,  response ,opts);
+        bot.sendMessage(chatId, response , opts);
     } else {
        var opts = {
             reply_to_message_id: message_id,
@@ -80,13 +80,13 @@ function sendMessage(response,chatId, message_id){
                 ['Verificar Leitura']]
             })
           };
-        bot.sendMessage(chatId,  response,opts);
+        bot.sendMessage(chatId, response, opts);
     }
   });
 }
 
 function responseReply(response,msg){
-  sendMessage(response,msg.chat.id,msg.message_id);
+  sendMessage(response, msg.chat.id, msg.message_id);
 }
 
 
@@ -97,22 +97,23 @@ app.get("/sensor/:value/:token", function(req, res) {
       return 0;
     }
     var status;
-    switch(req.params.value){
-    	case '1':  status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
-  		case '2':  status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
-  		case '3':  status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
-  		default:   status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
-    }
-    doc.status = status;
-    doc.date = Moment().tz('America/Sao_Paulo').format();
-  	db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
-    	var cursor = db.collection('users').find();
-      cursor.each(function(err, user) {
-        if(user && user._id == '153878723'){
-        //if(user){  
-          sendMessage("Houve a seguinte mudança no sensor: " +   status,user._id,0);
-        }
-       });
+    if(req.params.value){
+      switch(req.params.value){
+      	case '1':  status = "✅ ✅ ✅ Verde ✅ ✅ ✅"; break;
+    		case '2':  status =  "✴ ✴ ✴ Amarelo ✴ ✴ ✴"; break;
+    		case '3':  status =  "🚫 🚫 🚫 Vermelho 🚫 🚫 🚫"; break;
+      }
+      doc.status = status;
+      doc.date = Moment().tz('America/Sao_Paulo').format();
+    	db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
+      	var cursor = db.collection('users').find();
+        cursor.each(function(err, user) {
+          if(user && user._id == '153878723'){
+          //if(user){  
+            sendMessage("Houve a seguinte mudança no sensor: " +   status,user._id,0);
+          }
+         });
+      }
       res.send( { message: 'Realizado com sucesso', status: 'success'} );
       return 0;
   	});    			
