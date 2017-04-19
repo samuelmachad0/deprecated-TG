@@ -49,7 +49,7 @@ function readMessage(msg){
     break;
     case 'Verificar Leitura':
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        responseReply(doc.status+ " a última leitura foi realizada em " + doc.date,msg);
+        responseReply(doc.status+ " a última leitura foi realizada em " + (doc.date.getMonth() + 1) + '/' + doc.date.getDate() + '/' +  doc.date.getFullYear(),msg);
       }); 
     break;
     case '/start':
@@ -60,7 +60,7 @@ function readMessage(msg){
     break;     
   }
 }
-function send(response,chatId, message_id){
+function sendMessage(response,chatId, message_id){
   db.collection('users').count({ _id: chatId }, function(err, countDocuments) {
     if(parseInt(countDocuments) > 0){
        var opts = {
@@ -87,7 +87,7 @@ function send(response,chatId, message_id){
 }
 
 function responseReply(response,msg){
-  send(response,msg.chat.id,msg.message_id);
+  sendMessage(response,msg.chat.id,msg.message_id);
 }
 
 
@@ -111,7 +111,7 @@ app.get("/sensor/:value/:token", function(req, res) {
       cursor.each(function(err, user) {
         if(user && user._id == '153878723'){
         //if(user){  
-          send("Houve a seguinte mudança no sensor: " +   status,user._id,0);
+          sendMessage("Houve a seguinte mudança no sensor: " +   status,user._id,0);
         }
        });
       res.send( { message: 'Realizado com sucesso', status: 'success'} );
