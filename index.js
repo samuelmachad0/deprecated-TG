@@ -49,7 +49,8 @@ function readMessage(msg){
     break;
     case 'Verificar Leitura':
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        responseReply(doc.status+ " a última leitura foi realizada em " + (doc.date.getMonth() + 1) + '/' + doc.date.getDate() + '/' +  doc.date.getFullYear(),msg);
+        var date = new Date(doc.date);
+        responseReply(doc.status+ " a última leitura foi realizada em " + (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear(),msg);
       }); 
     break;
     case '/start':
