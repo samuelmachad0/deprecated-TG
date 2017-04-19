@@ -49,7 +49,7 @@ function readMessage(msg){
     break;
     case 'Verificar Leitura':
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        responseReply(doc.status+ " a última leitura foi em " + doc.date,msg);
+        responseReply(doc.status+ " a última leitura foi em " + moment(doc.date).format('d/m/Y, h:mm:ss'),msg);
       }); 
     break;
     case '/start':
@@ -105,12 +105,12 @@ app.get("/sensor/:value/:token", function(req, res) {
   		default:   status =   "⚠ ⚠ ⚠ Calibrando... ⚠ ⚠ ⚠"; break;
     }
     doc.status = status;
-    doc.date = new Date();
+    doc.date = Moment().tz('America/Sao_Paulo').format();
   	db.collection('bot').updateOne({_id: doc._id}, doc, function(err, doc) {
     	var cursor = db.collection('users').find();
       cursor.each(function(err, user) {
-        //if(user != null && user._id == '153878723'){
-        if(user != null){  
+        if(user && user._id == '153878723'){
+        //if(user){  
           send("Houve a seguinte mudança no sensor: " +   status,user._id,0);
         }
        });
