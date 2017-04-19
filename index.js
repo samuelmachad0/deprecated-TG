@@ -56,7 +56,7 @@ function readMessage(msg){
       responseReply("Olá! Vamos começar?",msg);
     break;
     default:
-      responseReply("Tente novamente!",msg);
+      responseReply("Não entendi, utilize os botões abaixo para realizar uma ação ⬇⬇",msg);
     break;     
   }
 }
