@@ -29,9 +29,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 });
 
 bot.on('message', function (msg) {
- 
   readMessage(msg);
-  
 });
 
 function readMessage(msg){
@@ -49,8 +47,8 @@ function readMessage(msg){
     break;
     case 'Verificar Leitura':
       db.collection('bot').findOne({ _id: '1' }, function(err, doc) {
-        var date = new Date(doc.date);
-        responseReply(doc.status+ " a última leitura foi realizada em " + date.getDate() + '/' + (date.getMonth() + 1)   + '/' +  date.getFullYear() + " às " + date.getHours() +":"+ ( (date.getMinutes()<10?'0':'') + date.getMinutes() ) + ":" + date.getSeconds(),msg);
+        
+        responseReply(doc.status+ " a última leitura foi realizada em " + convertDate(doc.date),msg);
       }); 
     break;
     case '/start':
@@ -120,3 +118,9 @@ app.get("/sensor/:value/:token", function(req, res) {
   	});    			
   });
 });
+
+
+function convertDate(dateTimezone){
+  var date = new Date(dateTimezone);
+  return date.getDate() + '/' + (date.getMonth() + 1)   + '/' +  date.getFullYear() + " às " + date.getHours() +":"+ ( (date.getMinutes()<10?'0':'') + date.getMinutes() ) + ":" + date.getSeconds();
+}
